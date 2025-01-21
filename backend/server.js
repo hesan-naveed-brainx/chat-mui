@@ -3,12 +3,12 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const authRoutes = require('./routes/auth');
 dotenv.config();
 connectDB().finally(() => {
     const app = express();
 
-    initializeJobs();
+    // initializeJobs();
 
     app.use(cors());
     app.use(bodyParser.json());
@@ -20,6 +20,7 @@ connectDB().finally(() => {
     app.use('/public', express.static('public'));
 
     // Import Routes
+    app.use('/api/auth', authRoutes);
 
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
