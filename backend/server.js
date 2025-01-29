@@ -3,12 +3,14 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const authRoutes = require('./routes/auth');
+const chatRoutes = require('./routes/chat');
+const { authMiddleware: authenticated } = require('./middlewares/authMiddleware');
 dotenv.config();
 connectDB().finally(() => {
     const app = express();
 
-    initializeJobs();
+    // initializeJobs();
 
     app.use(cors());
     app.use(bodyParser.json());
@@ -20,6 +22,8 @@ connectDB().finally(() => {
     app.use('/public', express.static('public'));
 
     // Import Routes
+    app.use('/api/auth', authRoutes);
+    app.use('/api/chat', authenticated, chatRoutes);
 
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
