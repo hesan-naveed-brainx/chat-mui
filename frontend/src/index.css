@@ -12,3 +12,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Styles for dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #375a7f; /* Dark mode primary */
+        --secondary-color: #444950; /* Dark mode secondary */
+        --background-color: #1e1e2f;
+        --text-color: #ffffff;
+    }
+}
